@@ -1,0 +1,13 @@
+.idea
+.DS_Store
+*.zip
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.log
+bs-config.js
+*.dat
+/.sass-cache
+/node_modules
