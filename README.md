@@ -2,9 +2,7 @@
 Installation
 ==================
 
-Make sure that [compass](http://compass-style.org/) and [gulp-cli](https://gulpjs.com/) (globally) is installed.
-
-To install **gulp-cli** use following command
+Install **gulp-cli** use following command
 `npm install gulp-cli -g`
 
 CD to your project folder.
