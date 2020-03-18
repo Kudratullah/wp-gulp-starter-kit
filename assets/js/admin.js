@@ -6,14 +6,14 @@
  * @author 
  * @copyright 
  */
-var rox_theme_admin_config = rox_theme_admin_config || {};
-;(function ($, window, document, config) {
-	"use strict";
-	
-	$(document).ready(function () {
-	});
-	$(window).load(function(){
-	});
-	$(window).resize(function() {
-	}).trigger('resize');
-})(jQuery, window, document, rox_theme_admin_config);
+const _configs = _configs || {};
+;(function ($, window, document, configs) {
+    "use strict";
+    const __variables__ = '';
+    $(document)
+        .on('ready', function () {});
+    $(window)
+        .on('load', function () {})
+        .on('resize', function () {})
+        .trigger('resize');
+})(jQuery, window, document, _configs);
