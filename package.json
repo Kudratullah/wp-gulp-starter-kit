@@ -29,6 +29,7 @@
     "gulp-clean-css": "^4.3.0",
     "gulp-eslint": "^5.0.0",
     "gulp-group-css-media-queries": "^1.2.2",
+    "gulp-js-prettify": "^0.1.0",
     "gulp-notify": "^3.2.0",
     "gulp-plumber": "^1.2.0",
     "gulp-postcss": "^8.0.0",

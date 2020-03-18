@@ -6,6 +6,7 @@ const app = require('./package.json');
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const babel = require('gulp-babel');
+const prettify = require('gulp-js-prettify');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const sass = require('gulp-sass');
@@ -18,16 +19,21 @@ const config = {
     bable: {
         presets: ['@babel/env']
     },
+    prettify: {
+        "indent_with_tabs": true,
+    }
 };
 
 // Tasks
 gulp.task('compile:js', () => {
-    return gulp.src(['assets/js/*.js','!assets/js/**/*.min.js'])
+    return gulp.src(['src/js/*.js','!src/js/**/*.min.js'])
     .pipe( sourcemaps.init( {largeFile: true} ) )
     .pipe( eslint() )
     .pipe( eslint.format() )
     .pipe( babel( config.bable ) )
     .on( 'error', notify.onError({ title: "Error", message: "Error: <%= error.message %>" }) )
+    .pipe( prettify( config.prettify ) )
+    .pipe( gulp.dest('assets/js') )
     .pipe( uglify() )
     .pipe( rename( {suffix: '.min' } ) )
     .pipe( sourcemaps.write( '/.') )
@@ -35,7 +41,7 @@ gulp.task('compile:js', () => {
     .pipe( notify( { message: 'TASK: Compile:JS Completed! 💯', onLast: true } ) );
 } );
 gulp.task('compile:scss', () => {
-    return gulp.src( 'scss/*.scss' )
+    return gulp.src( 'src/scss/*.scss' )
     .pipe(sass().on('error', sass.logError))
     .on( 'error', notify.onError({ title: "Error", message: "Error: <%= error.message %>" }) )
     .pipe( autoprefixer( { cascade: false } ) )
@@ -47,6 +53,6 @@ gulp.task('compile:scss', () => {
 });
 gulp.task( 'build', gulp.series( 'compile:js', 'compile:scss' ) );
 gulp.task('watch', function () {
-    gulp.watch( ['assets/js/*.js','!assets/js/**/*.min.js'], gulp.series( 'compile:js' ) );
-    gulp.watch( 'scss/**/*.scss', gulp.series( 'compile:scss' ) );
+    gulp.watch( ['src/js/*.js','!src/js/**/*.min.js'], gulp.series( 'compile:js' ) );
+    gulp.watch( 'src/scss/**/*.scss', gulp.series( 'compile:scss' ) );
 });
