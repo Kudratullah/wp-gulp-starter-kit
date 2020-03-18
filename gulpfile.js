@@ -8,28 +8,19 @@ const eslint = require('gulp-eslint');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
+const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
-const compass = require('gulp-compass');
-const minifyCSS = require('gulp-minify-css');
+const minifyCSS = require('gulp-clean-css');
 const autoprefixer = require('gulp-autoprefixer');
 const notify = require('gulp-notify');
- 
-// gulp.task('default', () =>
-//     gulp.src('src/main.js')
-//         .pipe(babel({
-//             presets: ['@babel/env']
-//         })
-//     )
-//     .pipe(gulp.dest('src/main.min.js'))
-//     // .pipe( uglify() )
-//     // .pipe(gulp.dest('src/main.min.js'))
-//     .pipe( notify( { message: 'TASK: "customJs" Completed! 💯', onLast: true } ) )
-// );
+
 const config = {
     bable: {
         presets: ['@babel/env']
     },
 };
+
+// Tasks
 gulp.task('compile:js', () => {
     return gulp.src(['assets/js/*.js','!assets/js/**/*.min.js'])
     .pipe( sourcemaps.init( {largeFile: true} ) )
@@ -45,16 +36,7 @@ gulp.task('compile:js', () => {
 } );
 gulp.task('compile:scss', () => {
     return gulp.src( 'scss/*.scss' )
-    .pipe( compass( {
-        config_file: 'config.rb',
-        sourcemap: true,
-        css: 'assets/css',
-        sass: 'scss',
-        image: 'assets/images'
-    } ) )
-//    .on( 'error', error => {
-//        console.log(error);
-//    } )
+    .pipe(sass().on('error', sass.logError))
     .on( 'error', notify.onError({ title: "Error", message: "Error: <%= error.message %>" }) )
     .pipe( autoprefixer( { cascade: false } ) )
     .pipe( gulp.dest('assets/css') )
@@ -68,13 +50,3 @@ gulp.task('watch', function () {
     gulp.watch( ['assets/js/*.js','!assets/js/**/*.min.js'], gulp.series( 'compile:js' ) );
     gulp.watch( 'scss/**/*.scss', gulp.series( 'compile:scss' ) );
 });
-
-// gulp.task('default', (cb) => {
-//     return gulp.src('src/main.js')
-//     .pipe( babel( config.bable ) )
-//     .pipe( gulp.dest('dist') )
-//     .pipe( rename( {suffix: '.min' } ) )
-//     .pipe( uglify() )
-//     .pipe( gulp.dest('dist') )
-//     .pipe( notify( { message: 'TASK Completed! 💯', onLast: true } ) );
-// } );
