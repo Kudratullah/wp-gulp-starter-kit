@@ -6,7 +6,6 @@
  * @author 
  * @copyright 
  */
-const _configs = _configs || {};
 ;(function ($, window, document, configs) {
     "use strict";
     const __variables__ = '';
@@ -16,4 +15,4 @@ const _configs = _configs || {};
         .on('load', function () {})
         .on('resize', function () {})
         .trigger('resize');
-})(jQuery, window, document, _configs);
+})(jQuery, window, document, configs || {});
